@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 1f;
+    public bool isPlayer1 = true;
     private Vector2 moveInput;
-    private Vector2 lastMove;
-
     private Rigidbody2D rb;
     private Animator animator;
+    private Vector2 lastMove;
 
     #region Initialization
     private void Start()
@@ -36,15 +35,17 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Input Handling
-    private void OnMove(InputValue value)
-    {
-        moveInput = value.Get<Vector2>();
-    }
-    #endregion
-
-    #region Movement Logic
     private void HandleMovement()
     {
+        if (isPlayer1)
+        {
+            moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        }
+        else
+        {
+            moveInput = new Vector2(Input.GetAxisRaw("Horizontal2"), Input.GetAxisRaw("Vertical2"));
+        }
+
         if (Mathf.Abs(moveInput.x) > 0.1f && Mathf.Abs(moveInput.y) > 0.1f)
         {
             if (Mathf.Abs(moveInput.x) > Mathf.Abs(moveInput.y))
