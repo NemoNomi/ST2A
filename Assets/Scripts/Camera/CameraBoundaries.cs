@@ -8,12 +8,14 @@ public class CameraBoundaries : MonoBehaviour
     public PixelPerfectCamera pixelPerfectCamera;
 
     [Header("Players")]
-    public Transform[] players;
+    public Transform player1;
+    public Transform player2;
 
     [Header("Boundary Settings")]
     public float buffer = 5f;
 
-    private float minX, maxX, minY, maxY;
+    private float minXLeft, maxXLeft, minYLeft, maxYLeft;
+    private float minXRight, maxXRight, minYRight, maxYRight;
 
     void Start()
     {
@@ -49,22 +51,35 @@ public class CameraBoundaries : MonoBehaviour
         Vector3 bottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
         Vector3 topRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, mainCamera.nearClipPlane));
 
-        minX = bottomLeft.x + buffer;
-        maxX = topRight.x - buffer;
-        minY = bottomLeft.y + buffer;
-        maxY = topRight.y - buffer;
+        float centerX = (bottomLeft.x + topRight.x) / 2f;
+
+        minXLeft = bottomLeft.x + buffer;
+        maxXLeft = centerX - buffer;
+        minYLeft = bottomLeft.y + buffer;
+        maxYLeft = topRight.y - buffer;
+
+        minXRight = centerX + buffer;
+        maxXRight = topRight.x - buffer;
+        minYRight = bottomLeft.y + buffer;
+        maxYRight = topRight.y - buffer;
     }
 
     void ClampPlayerPositions()
     {
-        foreach (Transform player in players)
+        if (player1 != null)
         {
-            if (player == null) continue;
+            Vector3 pos1 = player1.position;
+            pos1.x = Mathf.Clamp(pos1.x, minXLeft, maxXLeft);
+            pos1.y = Mathf.Clamp(pos1.y, minYLeft, maxYLeft);
+            player1.position = pos1;
+        }
 
-            Vector3 pos = player.position;
-            pos.x = Mathf.Clamp(pos.x, minX, maxX);
-            pos.y = Mathf.Clamp(pos.y, minY, maxY);
-            player.position = pos;
+        if (player2 != null)
+        {
+            Vector3 pos2 = player2.position;
+            pos2.x = Mathf.Clamp(pos2.x, minXRight, maxXRight);
+            pos2.y = Mathf.Clamp(pos2.y, minYRight, maxYRight);
+            player2.position = pos2;
         }
     }
 }
