@@ -42,6 +42,8 @@ public class PlayerCollectibleHandler : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.IsGameOver()) return;
+
         if (Input.GetKeyDown(GetInteractionKey()))
         {
             if (heldCollectible == null)
@@ -63,7 +65,7 @@ public class PlayerCollectibleHandler : MonoBehaviour
         }
         else
         {
-            return KeyCode.Return;
+            return KeyCode.RightControl;
         }
     }
 
@@ -77,6 +79,15 @@ public class PlayerCollectibleHandler : MonoBehaviour
                 CollectibleController collectible = hitCollider.GetComponent<CollectibleController>();
                 if (collectible != null && !collectible.isCollected)
                 {
+                    if (Vector3.Distance(collectible.transform.position, storagePoint.position) < 1.5f)
+                    {
+                        StorageController storage = storagePoint.GetComponent<StorageController>();
+                        if (storage != null)
+                        {
+                            storage.RemoveCollectible();
+                        }
+                    }
+
                     heldCollectible = collectible;
                     collectible.Collect(transform);
                     break;
@@ -95,9 +106,18 @@ public class PlayerCollectibleHandler : MonoBehaviour
             if (distance < 1.5f)
             {
                 dropPosition = storagePoint.position;
+                heldCollectible.Drop(dropPosition);
+                StorageController storage = storagePoint.GetComponent<StorageController>();
+                if (storage != null)
+                {
+                    storage.AddCollectible();
+                }
+            }
+            else
+            {
+                heldCollectible.Drop(dropPosition);
             }
 
-            heldCollectible.Drop(dropPosition);
             heldCollectible = null;
         }
     }
