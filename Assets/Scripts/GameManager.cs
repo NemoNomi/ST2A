@@ -8,27 +8,30 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Header("UI Elements")]
-    public TextMeshProUGUI timerText; // TextMeshPro für den Timer
-    public TextMeshProUGUI finalTimeText; // TextMeshPro für die finale Zeit
-    public GameObject gameOverPanel; // Spielende-Panel
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI finalTimeText;
+    public GameObject gameOverPanel;
+
+    [Header("Leaderboard Settings")]
+    public LeaderboardManager leaderboardManager;
 
     private float timer = 0f;
     private bool timerRunning = false;
-    private bool isGameOver = false; // NEU: Variable für den Spielstatus
-
+    private bool isGameOver = false;
     [Header("Storage Controllers")]
     public StorageController storage1;
     public StorageController storage2;
 
     [Header("Collectibles Settings")]
-    public CollectibleController[] allCollectibles; // Liste aller Collectibles
+    public CollectibleController[] allCollectibles;
 
     [Header("Timer Settings")]
-    public float collectibleStartDelay = 3f; // Verzögerung, bevor Collectibles erscheinen
+    public float collectibleStartDelay = 3f;
+
+    private string teamName;
 
     void Awake()
     {
-        // Singleton-Pattern
         if (Instance == null)
         {
             Instance = this;
@@ -41,31 +44,27 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Setze den Timer von Anfang an auf 00:00
+        teamName = PlayerPrefs.GetString("TeamName", "No Team");
+
         UpdateTimerUI();
 
-        // Collectibles zunächst deaktivieren
         foreach (CollectibleController collectible in allCollectibles)
         {
             collectible.gameObject.SetActive(false);
         }
 
-        // Timer und Collectibles nach der Verzögerung aktivieren
         StartCoroutine(ActivateCollectiblesAfterDelay());
     }
 
     IEnumerator ActivateCollectiblesAfterDelay()
     {
-        // Warte die festgelegte Zeit
         yield return new WaitForSeconds(collectibleStartDelay);
 
-        // Collectibles aktivieren
         foreach (CollectibleController collectible in allCollectibles)
         {
             collectible.gameObject.SetActive(true);
         }
 
-        // Timer starten
         StartTimer();
     }
 
@@ -97,9 +96,6 @@ public class GameManager : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    /// <summary>
-    /// Überprüft, ob beide Speicher gefüllt sind.
-    /// </summary>
     public void CheckGameStatus()
     {
         if (storage1.IsFilled && storage2.IsFilled)
@@ -108,30 +104,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Beendet das Spiel und zeigt die finale Zeit an.
-    /// </summary>
+
     void EndGame()
     {
         StopTimer();
         finalTimeText.text = "Zeit: " + timerText.text;
         gameOverPanel.SetActive(true);
-        isGameOver = true; // NEU: Setze das Spiel als beendet
+        isGameOver = true;
 
-        // Spielerbewegung stoppen
         PlayerController[] players = FindObjectsOfType<PlayerController>();
         foreach (PlayerController player in players)
         {
             player.DisableMovement();
         }
+
+        leaderboardManager.AddToLeaderboard(teamName, timer);
     }
 
-    public bool IsGameOver() // NEU: Getter für den Spielstatus
+    public bool IsGameOver()
     {
         return isGameOver;
     }
 
-    // Optional: Neustart des Spiels
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
