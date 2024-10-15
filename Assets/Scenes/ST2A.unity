@@ -380,7 +380,7 @@ MonoBehaviour:
   allCollectibles:
   - {fileID: 1364524449}
   - {fileID: 60656420}
-  timerStartDelay: 4
+  collectibleStartDelay: 3
 --- !u!1 &60656418
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,7 +859,7 @@ GameObject:
   m_Component:
   - component: {fileID: 630673341}
   m_Layer: 0
-  m_Name: <-----CollectiblePlayer2-----> (1)
+  m_Name: <-----CollectiblePlayer2----->
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
