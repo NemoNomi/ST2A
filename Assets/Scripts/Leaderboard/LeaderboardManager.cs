@@ -6,8 +6,10 @@ public class LeaderboardManager : MonoBehaviour
 {
     public TextMeshProUGUI[] teamNameTexts;
     public TextMeshProUGUI[] timeTexts;
-    
+
     private List<LeaderboardEntry> leaderboardEntries = new List<LeaderboardEntry>();
+
+    private string currentRoundKey = "Round1";
 
     [System.Serializable]
     public class LeaderboardEntry
@@ -24,6 +26,12 @@ public class LeaderboardManager : MonoBehaviour
 
     void Start()
     {
+        LoadLeaderboard();
+    }
+
+    public void SetRoundKey(string roundKey)
+    {
+        currentRoundKey = roundKey;
         LoadLeaderboard();
     }
 
@@ -51,7 +59,6 @@ public class LeaderboardManager : MonoBehaviour
         }
 
         SaveLeaderboard();
-
         UpdateLeaderboardUI();
     }
 
@@ -83,8 +90,8 @@ public class LeaderboardManager : MonoBehaviour
     {
         for (int i = 0; i < leaderboardEntries.Count; i++)
         {
-            PlayerPrefs.SetString("TeamName" + i, leaderboardEntries[i].teamName);
-            PlayerPrefs.SetFloat("TeamTime" + i, leaderboardEntries[i].time);
+            PlayerPrefs.SetString(currentRoundKey + "_TeamName" + i, leaderboardEntries[i].teamName);
+            PlayerPrefs.SetFloat(currentRoundKey + "_TeamTime" + i, leaderboardEntries[i].time);
         }
     }
 
@@ -94,10 +101,10 @@ public class LeaderboardManager : MonoBehaviour
 
         for (int i = 0; i < teamNameTexts.Length; i++)
         {
-            if (PlayerPrefs.HasKey("TeamName" + i) && PlayerPrefs.HasKey("TeamTime" + i))
+            if (PlayerPrefs.HasKey(currentRoundKey + "_TeamName" + i) && PlayerPrefs.HasKey(currentRoundKey + "_TeamTime" + i))
             {
-                string teamName = PlayerPrefs.GetString("TeamName" + i);
-                float time = PlayerPrefs.GetFloat("TeamTime" + i);
+                string teamName = PlayerPrefs.GetString(currentRoundKey + "_TeamName" + i);
+                float time = PlayerPrefs.GetFloat(currentRoundKey + "_TeamTime" + i);
                 leaderboardEntries.Add(new LeaderboardEntry(teamName, time));
             }
         }
@@ -107,7 +114,11 @@ public class LeaderboardManager : MonoBehaviour
 
     public void ResetLeaderboard()
     {
-        PlayerPrefs.DeleteAll();
+        for (int i = 0; i < 5; i++)
+        {
+            PlayerPrefs.DeleteKey(currentRoundKey + "_TeamName" + i);
+            PlayerPrefs.DeleteKey(currentRoundKey + "_TeamTime" + i);
+        }
         leaderboardEntries.Clear();
         UpdateLeaderboardUI();
     }

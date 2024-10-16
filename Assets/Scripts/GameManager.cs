@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private float timer = 0f;
     private bool timerRunning = false;
     private bool isGameOver = false;
+
     [Header("Storage Controllers")]
     public StorageController storage1;
     public StorageController storage2;
@@ -45,6 +46,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         teamName = PlayerPrefs.GetString("TeamName", "No Team");
+
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        leaderboardManager.SetRoundKey("Round" + sceneIndex);
 
         UpdateTimerUI();
 
@@ -104,7 +108,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     void EndGame()
     {
         StopTimer();
@@ -117,6 +120,8 @@ public class GameManager : MonoBehaviour
         {
             player.DisableMovement();
         }
+
+        Debug.Log("Final Timer (to be added to Leaderboard): " + timer);
 
         leaderboardManager.AddToLeaderboard(teamName, timer);
     }
