@@ -9,6 +9,7 @@ public class StorageController : MonoBehaviour
 
     private Color originalColor;
     private SpriteRenderer sr;
+    private CollectibleController storedCollectible;
 
     void Start()
     {
@@ -20,18 +21,26 @@ public class StorageController : MonoBehaviour
         CheckIfFilled();
     }
 
-    public void AddCollectible()
+    public void AddCollectible(CollectibleController collectible)
     {
-        currentCollectibles++;
-        Debug.Log(gameObject.name + " hat jetzt " + currentCollectibles + " Collectibles.");
-        CheckIfFilled();
+        if (storedCollectible == null)
+        {
+            storedCollectible = collectible;
+            currentCollectibles++;
+            Debug.Log(gameObject.name + " hat jetzt " + currentCollectibles + " Collectibles.");
+            CheckIfFilled();
+        }
     }
 
-    public void RemoveCollectible()
+    public void RemoveCollectible(CollectibleController collectible)
     {
-        currentCollectibles--;
-        Debug.Log(gameObject.name + " hat jetzt " + currentCollectibles + " Collectibles.");
-        CheckIfFilled();
+        if (storedCollectible == collectible)
+        {
+            storedCollectible = null;
+            currentCollectibles--;
+            Debug.Log(gameObject.name + " hat jetzt " + currentCollectibles + " Collectibles.");
+            CheckIfFilled();
+        }
     }
 
     void CheckIfFilled()

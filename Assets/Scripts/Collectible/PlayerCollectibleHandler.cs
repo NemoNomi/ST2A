@@ -4,7 +4,7 @@ public class PlayerCollectibleHandler : MonoBehaviour
 {
     private CollectibleController heldCollectible;
     private PlayerIdentifier playerIdentifier;
-    public Transform storagePoint;
+    public Transform[] storagePoints;
 
     void Start()
     {
@@ -16,26 +16,20 @@ public class PlayerCollectibleHandler : MonoBehaviour
 
         if (playerIdentifier.playerNumber == 1)
         {
-            GameObject storageObj = GameObject.Find("Storage_Player1");
-            if (storageObj != null)
+            GameObject[] storageObjects = GameObject.FindGameObjectsWithTag("Storage_Player1");
+            storagePoints = new Transform[storageObjects.Length];
+            for (int i = 0; i < storageObjects.Length; i++)
             {
-                storagePoint = storageObj.transform;
-            }
-            else
-            {
-                Debug.LogError("Storage_Player1 nicht gefunden!");
+                storagePoints[i] = storageObjects[i].transform;
             }
         }
         else if (playerIdentifier.playerNumber == 2)
         {
-            GameObject storageObj = GameObject.Find("Storage_Player2");
-            if (storageObj != null)
+            GameObject[] storageObjects = GameObject.FindGameObjectsWithTag("Storage_Player2");
+            storagePoints = new Transform[storageObjects.Length];
+            for (int i = 0; i < storageObjects.Length; i++)
             {
-                storagePoint = storageObj.transform;
-            }
-            else
-            {
-                Debug.LogError("Storage_Player2 nicht gefunden!");
+                storagePoints[i] = storageObjects[i].transform;
             }
         }
     }
@@ -69,58 +63,76 @@ public class PlayerCollectibleHandler : MonoBehaviour
         }
     }
 
-    void TryPickupCollectible()
+   void TryPickupCollectible()
+{
+    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.5f);
+    foreach (var hitCollider in hitColliders)
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.5f);
-        foreach (var hitCollider in hitColliders)
+        if (hitCollider.CompareTag("Collectible"))
         {
-            if (hitCollider.CompareTag("Collectible"))
+            CollectibleController collectible = hitCollider.GetComponent<CollectibleController>();
+            if (collectible != null && !collectible.isCollected)
             {
-                CollectibleController collectible = hitCollider.GetComponent<CollectibleController>();
-                if (collectible != null && !collectible.isCollected)
+                foreach (var storagePoint in storagePoints)
                 {
-                    if (Vector3.Distance(collectible.transform.position, storagePoint.position) < 1.5f)
+                    float distance = Vector3.Distance(collectible.transform.position, storagePoint.position);
+                    if (distance < 1.5f)
                     {
                         StorageController storage = storagePoint.GetComponent<StorageController>();
                         if (storage != null)
                         {
-                            storage.RemoveCollectible();
+                            storage.RemoveCollectible(collectible);
                         }
                     }
-
-                    heldCollectible = collectible;
-                    collectible.Collect(transform);
-                    break;
                 }
+
+                heldCollectible = collectible;
+                collectible.Collect(transform);
+                break;
             }
         }
     }
+}
 
-    void DropCollectible()
+void DropCollectible()
+{
+    if (heldCollectible != null)
     {
-        if (heldCollectible != null)
-        {
-            Vector3 dropPosition = transform.position;
+        Transform closestStorage = null;
+        float closestDistance = Mathf.Infinity;
 
+        foreach (var storagePoint in storagePoints)
+        {
             float distance = Vector3.Distance(transform.position, storagePoint.position);
-            if (distance < 1.5f)
+            if (distance < 1.5f && distance < closestDistance)
             {
-                dropPosition = storagePoint.position;
-                heldCollectible.Drop(dropPosition);
                 StorageController storage = storagePoint.GetComponent<StorageController>();
-                if (storage != null)
+                if (storage != null && !storage.IsFilled)
                 {
-                    storage.AddCollectible();
+                    closestStorage = storagePoint;
+                    closestDistance = distance;
                 }
             }
-            else
-            {
-                heldCollectible.Drop(dropPosition);
-            }
-
-            heldCollectible = null;
         }
+
+        if (closestStorage != null)
+        {
+            heldCollectible.Drop(closestStorage.position);
+            StorageController storage = closestStorage.GetComponent<StorageController>();
+            if (storage != null)
+            {
+                storage.AddCollectible(heldCollectible);
+            }
+        }
+        else
+        {
+            heldCollectible.Drop(transform.position);
+        }
+
+        heldCollectible = null;
     }
+}
+
 
     void OnDrawGizmosSelected()
     {

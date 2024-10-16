@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     private bool isGameOver = false;
 
     [Header("Storage Controllers")]
-    public StorageController storage1;
-    public StorageController storage2;
+    public StorageController[] player1Storages;
+    public StorageController[] player2Storages;
 
     [Header("Collectibles Settings")]
     public CollectibleController[] allCollectibles;
@@ -102,10 +102,22 @@ public class GameManager : MonoBehaviour
 
     public void CheckGameStatus()
     {
-        if (storage1.IsFilled && storage2.IsFilled)
+        if (AllStoragesFilled(player1Storages) && AllStoragesFilled(player2Storages))
         {
             EndGame();
         }
+    }
+
+    bool AllStoragesFilled(StorageController[] storages)
+    {
+        foreach (var storage in storages)
+        {
+            if (!storage.IsFilled)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     void EndGame()
