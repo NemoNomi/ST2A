@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class PlayerCollectibleHandler : MonoBehaviour
 {
+    #region Fields
     private CollectibleController heldCollectible;
     private PlayerIdentifier playerIdentifier;
     public Transform[] storagePoints;
+    public ErrorMessageController errorMessageController;
+    #endregion
 
+    #region Initialization
     void Start()
     {
         playerIdentifier = GetComponent<PlayerIdentifier>();
@@ -33,7 +37,9 @@ public class PlayerCollectibleHandler : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Update
     void Update()
     {
         if (GameManager.Instance.IsGameOver()) return;
@@ -62,81 +68,106 @@ public class PlayerCollectibleHandler : MonoBehaviour
             return KeyCode.RightControl;
         }
     }
+    #endregion
 
-   void TryPickupCollectible()
-{
-    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.5f);
-    foreach (var hitCollider in hitColliders)
+    #region Pickup and Drop Logic
+    void TryPickupCollectible()
     {
-        if (hitCollider.CompareTag("Collectible"))
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.7f);
+        foreach (var hitCollider in hitColliders)
         {
-            CollectibleController collectible = hitCollider.GetComponent<CollectibleController>();
-            if (collectible != null && !collectible.isCollected)
+            if (hitCollider.CompareTag("Collectible"))
             {
-                foreach (var storagePoint in storagePoints)
+                CollectibleController collectible = hitCollider.GetComponent<CollectibleController>();
+                if (collectible != null && !collectible.isCollected)
                 {
-                    float distance = Vector3.Distance(collectible.transform.position, storagePoint.position);
-                    if (distance < 1.5f)
+                    foreach (var storagePoint in storagePoints)
                     {
-                        StorageController storage = storagePoint.GetComponent<StorageController>();
-                        if (storage != null)
+                        float distance = Vector3.Distance(collectible.transform.position, storagePoint.position);
+                        if (distance < 0.7f)
                         {
-                            storage.RemoveCollectible(collectible);
+                            StorageController storage = storagePoint.GetComponent<StorageController>();
+                            if (storage != null)
+                            {
+                                storage.RemoveCollectible(collectible);
+                            }
+                        }
+                    }
+
+                    heldCollectible = collectible;
+                    collectible.Collect(transform);
+                    break;
+                }
+            }
+        }
+    }
+
+    void DropCollectible()
+    {
+        if (heldCollectible != null)
+        {
+            Transform closestStorage = null;
+            float closestDistance = Mathf.Infinity;
+            bool isStandingOnInvalidStorage = false;
+
+            foreach (var storagePoint in storagePoints)
+            {
+                float distance = Vector3.Distance(transform.position, storagePoint.position);
+                if (distance < 0.7f)
+                {
+                    StorageController storage = storagePoint.GetComponent<StorageController>();
+
+                    if (storage != null && !storage.IsFilled)
+                    {
+                        if (storage.CanStoreCollectible(heldCollectible))
+                        {
+                            if (distance < closestDistance)
+                            {
+                                closestDistance = distance;
+                                closestStorage = storagePoint;
+                            }
+                        }
+                        else
+                        {
+                            isStandingOnInvalidStorage = true;
                         }
                     }
                 }
-
-                heldCollectible = collectible;
-                collectible.Collect(transform);
-                break;
             }
-        }
-    }
-}
 
-void DropCollectible()
-{
-    if (heldCollectible != null)
-    {
-        Transform closestStorage = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (var storagePoint in storagePoints)
-        {
-            float distance = Vector3.Distance(transform.position, storagePoint.position);
-            if (distance < 1.5f && distance < closestDistance)
+            if (closestStorage != null)
             {
-                StorageController storage = storagePoint.GetComponent<StorageController>();
-                if (storage != null && !storage.IsFilled)
+                heldCollectible.Drop(closestStorage.position);
+                StorageController storage = closestStorage.GetComponent<StorageController>();
+                if (storage != null)
                 {
-                    closestStorage = storagePoint;
-                    closestDistance = distance;
+                    storage.AddCollectible(heldCollectible);
+                }
+                heldCollectible = null;
+            }
+            else if (isStandingOnInvalidStorage)
+            {
+                Debug.Log("Das Collectible kann hier nicht abgelegt werden. Die Gruppen stimmen nicht überein.");
+                if (errorMessageController != null)
+                {
+                    errorMessageController.ShowErrorMessage();
                 }
             }
-        }
-
-        if (closestStorage != null)
-        {
-            heldCollectible.Drop(closestStorage.position);
-            StorageController storage = closestStorage.GetComponent<StorageController>();
-            if (storage != null)
+            else
             {
-                storage.AddCollectible(heldCollectible);
+                heldCollectible.Drop(transform.position);
+                Debug.Log("Collectible in der Welt abgelegt.");
+                heldCollectible = null;
             }
         }
-        else
-        {
-            heldCollectible.Drop(transform.position);
-        }
-
-        heldCollectible = null;
     }
-}
+    #endregion
 
-
+    #region Gizmos
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, 1.5f);
+        Gizmos.DrawWireSphere(transform.position, 0.7f);
     }
+    #endregion
 }

@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class StorageController : MonoBehaviour
 {
-    [Header("Storage Settings")]
+    #region Storage Settings
     public int requiredCollectibles = 1;
     private int currentCollectibles = 0;
     public bool IsFilled { get; private set; } = false;
+    #endregion
 
+    #region Visuals and Collectible Reference
     private Color originalColor;
     private SpriteRenderer sr;
     private CollectibleController storedCollectible;
+    #endregion
 
+    #region Group-based Restriction
+    public string allowedGroup;
+    #endregion
+
+    #region Initialization
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -20,15 +28,29 @@ public class StorageController : MonoBehaviour
         }
         CheckIfFilled();
     }
+    #endregion
+
+    #region Collectible Management
+    public bool CanStoreCollectible(CollectibleController collectible)
+    {
+        return collectible.collectibleGroup == allowedGroup;
+    }
 
     public void AddCollectible(CollectibleController collectible)
     {
-        if (storedCollectible == null)
+        if (CanStoreCollectible(collectible))
         {
-            storedCollectible = collectible;
-            currentCollectibles++;
-            Debug.Log(gameObject.name + " hat jetzt " + currentCollectibles + " Collectibles.");
-            CheckIfFilled();
+            if (storedCollectible == null)
+            {
+                storedCollectible = collectible;
+                currentCollectibles++;
+                Debug.Log(gameObject.name + " hat jetzt " + currentCollectibles + " Collectibles.");
+                CheckIfFilled();
+            }
+        }
+        else
+        {
+            Debug.Log("This collectible doesn't belong to the allowed group for this storage.");
         }
     }
 
@@ -42,7 +64,9 @@ public class StorageController : MonoBehaviour
             CheckIfFilled();
         }
     }
+    #endregion
 
+    #region Status and Visual Updates
     void CheckIfFilled()
     {
         if (currentCollectibles >= requiredCollectibles)
@@ -73,4 +97,5 @@ public class StorageController : MonoBehaviour
             sr.color = color;
         }
     }
+    #endregion
 }

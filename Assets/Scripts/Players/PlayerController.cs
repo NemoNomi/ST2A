@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Fields
     public float moveSpeed = 1f;
     public bool isPlayer1 = true;
     private Vector2 moveInput;
     private Rigidbody2D rb;
     private Animator animator;
     private Vector2 lastMove;
-
-    // Flag zur Steuerung der Bewegung
     private bool canMove = true;
+    #endregion
 
     #region Initialization
     private void Start()
@@ -94,22 +94,14 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Deaktiviert die Spielerbewegung.
-    /// </summary>
     public void DisableMovement()
     {
         canMove = false;
-        // Optional: Setze die aktuelle Geschwindigkeit auf Null
         rb.velocity = Vector2.zero;
-        // Optional: Aktualisiere den Animator, um den Idle-Zustand zu reflektieren
         animator.SetBool("isMoving", false);
         Debug.Log(gameObject.name + " Bewegung deaktiviert.");
     }
 
-    /// <summary>
-    /// Aktiviert die Spielerbewegung.
-    /// </summary>
     public void EnableMovement()
     {
         canMove = true;
