@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
         }
 
         PlayerPrefs.SetString("TeamName", teamName);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void ShowWarning(string message)
