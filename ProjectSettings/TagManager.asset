@@ -8,6 +8,7 @@ TagManager:
   - Storage
   - Storage_Player1
   - Storage_Player2
+  - Audio
   layers:
   - Default
   - TransparentFX
