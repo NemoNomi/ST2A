@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip UISelect;
     public AudioClip UISubmit;
     public AudioClip Leaderboard;
+    public AudioClip StorageDrop;
 
     #region Singleton
     public static AudioManager instance;

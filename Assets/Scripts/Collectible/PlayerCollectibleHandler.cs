@@ -7,7 +7,16 @@ public class PlayerCollectibleHandler : MonoBehaviour
     private PlayerIdentifier playerIdentifier;
     public Transform[] storagePoints;
     public ErrorMessageController errorMessageController;
+
+    [Header("Audio SFX")]
+    private AudioManager audioManager;
+    
     #endregion
+
+private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     #region Initialization
     void Start()
@@ -142,6 +151,7 @@ public class PlayerCollectibleHandler : MonoBehaviour
                 if (storage != null)
                 {
                     storage.AddCollectible(heldCollectible);
+                    audioManager.PlaySFX(audioManager.StorageDrop);
                 }
                 heldCollectible = null;
             }

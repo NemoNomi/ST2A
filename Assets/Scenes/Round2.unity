@@ -5392,6 +5392,7 @@ MonoBehaviour:
   UISelect: {fileID: 8300000, guid: cbd19b14e61eeeb45933925652139ffd, type: 3}
   UISubmit: {fileID: 8300000, guid: cbd19b14e61eeeb45933925652139ffd, type: 3}
   Leaderboard: {fileID: 8300000, guid: 5b0921e837f7f6744bbb1b88f81c02a6, type: 3}
+  StorageDrop: {fileID: 8300000, guid: f722bb762e3d4c04589b7d05c49d2dbc, type: 3}
 --- !u!4 &825904120
 Transform:
   m_ObjectHideFlags: 0
