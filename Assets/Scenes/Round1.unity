@@ -6650,8 +6650,7 @@ Transform:
   m_LocalPosition: {x: 0.46309352, y: 1.5246668, z: -0.03985529}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1557597345}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1233855729
@@ -8063,7 +8062,7 @@ GameObject:
   - component: {fileID: 1557597347}
   - component: {fileID: 1557597346}
   m_Layer: 0
-  m_Name: CanvasPauseMenuButton
+  m_Name: CanvasPauseIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8082,7 +8081,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 675065691}
-  m_Father: {fileID: 1189175186}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11398,6 +11397,7 @@ SceneRoots:
   - {fileID: 1107878952}
   - {fileID: 1759446745}
   - {fileID: 1317193771}
+  - {fileID: 1557597345}
   - {fileID: 1330343975}
   - {fileID: 352742692}
   - {fileID: 36810284}
