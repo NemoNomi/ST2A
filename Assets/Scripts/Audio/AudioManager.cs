@@ -13,13 +13,14 @@ public class AudioManager : MonoBehaviour
 
     [Header("Audio Mixer")]
     public AudioMixer audioMixer;
-    
+
     [Header("Audio Clip")]
     public AudioClip background;
     public AudioClip PauseMenuOpen;
     public AudioClip PauseMenuClose;
     public AudioClip UISelect;
     public AudioClip UISubmit;
+    public AudioClip Leaderboard;
 
     #region Singleton
     public static AudioManager instance;

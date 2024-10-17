@@ -7,6 +7,9 @@ public class LeaderboardManager : MonoBehaviour
     public TextMeshProUGUI[] teamNameTexts;
     public TextMeshProUGUI[] timeTexts;
 
+    [Header("Audio SFX")]
+    AudioManager audioManager;
+
     private List<LeaderboardEntry> leaderboardEntries = new List<LeaderboardEntry>();
 
     private string currentRoundKey = "Round1";
@@ -22,6 +25,11 @@ public class LeaderboardManager : MonoBehaviour
             teamName = name;
             time = t;
         }
+    }
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     void Start()
@@ -60,6 +68,8 @@ public class LeaderboardManager : MonoBehaviour
 
         SaveLeaderboard();
         UpdateLeaderboardUI();
+
+        audioManager.PlaySFX(audioManager.Leaderboard);
     }
 
     private void UpdateLeaderboardUI()
