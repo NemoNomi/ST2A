@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerCollectibleHandler : MonoBehaviour
 {
-    #region Fields
     private CollectibleController heldCollectible;
     private PlayerIdentifier playerIdentifier;
     public Transform[] storagePoints;
@@ -10,22 +9,15 @@ public class PlayerCollectibleHandler : MonoBehaviour
 
     [Header("Audio SFX")]
     private AudioManager audioManager;
-    
-    #endregion
 
-private void Awake()
+    private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
-    #region Initialization
     void Start()
     {
         playerIdentifier = GetComponent<PlayerIdentifier>();
-        if (playerIdentifier == null)
-        {
-            Debug.LogError("PlayerCollectibleHandler: Kein PlayerIdentifier gefunden.");
-        }
 
         if (playerIdentifier.playerNumber == 1)
         {
@@ -46,9 +38,7 @@ private void Awake()
             }
         }
     }
-    #endregion
 
-    #region Update
     void Update()
     {
         if (GameManager.Instance.IsGameOver()) return;
@@ -77,11 +67,14 @@ private void Awake()
             return KeyCode.RightControl;
         }
     }
-    #endregion
 
-    #region Pickup and Drop Logic
     void TryPickupCollectible()
     {
+        if (heldCollectible != null)
+        {
+            return;
+        }
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.7f);
         foreach (var hitCollider in hitColliders)
         {
@@ -157,7 +150,6 @@ private void Awake()
             }
             else if (isStandingOnInvalidStorage)
             {
-                Debug.Log("Das Collectible kann hier nicht abgelegt werden. Die Gruppen stimmen nicht überein.");
                 if (errorMessageController != null)
                 {
                     errorMessageController.ShowErrorMessage();
@@ -166,18 +158,14 @@ private void Awake()
             else
             {
                 heldCollectible.Drop(transform.position);
-                Debug.Log("Collectible in der Welt abgelegt.");
                 heldCollectible = null;
             }
         }
     }
-    #endregion
 
-    #region Gizmos
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, 0.7f);
     }
-    #endregion
 }

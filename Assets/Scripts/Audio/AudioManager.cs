@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource SFXSource;
     [SerializeField] AudioSource UISource;
-    [SerializeField] private VolumeSettings volumeSettings;
+
 
     [Header("Audio Mixer")]
     public AudioMixer audioMixer;

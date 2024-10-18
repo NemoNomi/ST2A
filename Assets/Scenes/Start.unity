@@ -1011,6 +1011,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 372296839}
   m_CullTransparentMesh: 1
+--- !u!1 &379289898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 379289900}
+  - component: {fileID: 379289899}
+  m_Layer: 0
+  m_Name: VolumeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &379289899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379289898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb2b9bd00c03db42bf6f2a40ccc8fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myMixer: {fileID: 24100000, guid: 03979e8c571b2a74386afc9c61cd2449, type: 2}
+  musicSlider: {fileID: 409585247}
+  SFXSlider: {fileID: 728655875}
+  masterSlider: {fileID: 1918901863}
+  UISlider: {fileID: 1168719646}
+--- !u!4 &379289900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379289898}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 168.16035, y: 140.52951, z: -3.435243}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &408023507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,7 +1229,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1917201383}
+      - m_Target: {fileID: 379289899}
         m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
         m_MethodName: SetMusicVolume
         m_Mode: 1
@@ -1775,7 +1824,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1917201383}
+      - m_Target: {fileID: 379289899}
         m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
         m_MethodName: SetSFXVolume
         m_Mode: 1
@@ -2900,7 +2949,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1917201383}
+      - m_Target: {fileID: 379289899}
         m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
         m_MethodName: SetUIVolume
         m_Mode: 1
@@ -4781,7 +4830,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1917201385}
   - component: {fileID: 1917201384}
-  - component: {fileID: 1917201383}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Audio
@@ -4789,23 +4837,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1917201383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917201382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb2b9bd00c03db42bf6f2a40ccc8fe5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myMixer: {fileID: 24100000, guid: 03979e8c571b2a74386afc9c61cd2449, type: 2}
-  musicSlider: {fileID: 409585247}
-  SFXSlider: {fileID: 728655875}
-  masterSlider: {fileID: 1918901863}
-  UISlider: {fileID: 1168719646}
 --- !u!114 &1917201384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4821,13 +4852,15 @@ MonoBehaviour:
   musicSource: {fileID: 370356222}
   SFXSource: {fileID: 1545177680}
   UISource: {fileID: 1579491758}
-  volumeSettings: {fileID: 1917201383}
+  volumeSettings: {fileID: 379289899}
   audioMixer: {fileID: 24100000, guid: 03979e8c571b2a74386afc9c61cd2449, type: 2}
   background: {fileID: 8300000, guid: b157af3e2987bea4fa57d0e805010127, type: 3}
   PauseMenuOpen: {fileID: 8300000, guid: cbd19b14e61eeeb45933925652139ffd, type: 3}
   PauseMenuClose: {fileID: 8300000, guid: 53720a0eb52b7d74e88682d60312e171, type: 3}
   UISelect: {fileID: 8300000, guid: cbd19b14e61eeeb45933925652139ffd, type: 3}
   UISubmit: {fileID: 8300000, guid: cbd19b14e61eeeb45933925652139ffd, type: 3}
+  Leaderboard: {fileID: 8300000, guid: 5b0921e837f7f6744bbb1b88f81c02a6, type: 3}
+  StorageDrop: {fileID: 8300000, guid: f722bb762e3d4c04589b7d05c49d2dbc, type: 3}
 --- !u!4 &1917201385
 Transform:
   m_ObjectHideFlags: 0
@@ -4937,7 +4970,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1917201383}
+      - m_Target: {fileID: 379289899}
         m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
         m_MethodName: SetMasterVolume
         m_Mode: 1
@@ -5884,3 +5917,4 @@ SceneRoots:
   - {fileID: 1923729861}
   - {fileID: 441363447}
   - {fileID: 1917201385}
+  - {fileID: 379289900}

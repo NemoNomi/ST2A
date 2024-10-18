@@ -9,6 +9,10 @@ TagManager:
   - Storage_Player1
   - Storage_Player2
   - Audio
+  - MusicSlider
+  - SFXSlider
+  - MasterSlider
+  - UISlider
   layers:
   - Default
   - TransparentFX
