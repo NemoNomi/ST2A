@@ -70,6 +70,7 @@ public class MainMenuManager : MonoBehaviour
     {
         OpenAudioSettingsMenu();
     }
+
     public void OnControlsSettingsPress()
     {
         OpenControlsSettingsMenu();
@@ -92,6 +93,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnPlayButton()
     {
+        StartCoroutine(WaitAndLoadScene(1.5f));
+    }
+
+    private IEnumerator WaitAndLoadScene(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
