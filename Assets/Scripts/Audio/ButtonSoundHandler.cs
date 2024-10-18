@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class ButtonSoundHandler : MonoBehaviour
+public class ButtonSoundHandler : MonoBehaviour, IPointerEnterHandler
 {
     private Button button;
 
@@ -18,5 +19,10 @@ public class ButtonSoundHandler : MonoBehaviour
     private void PlayButtonClickSound()
     {
         AudioManager.instance.PlayUI(AudioManager.instance.UISelect);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        AudioManager.instance.PlayUI(AudioManager.instance.UIHover);
     }
 }

@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip PauseMenuClose;
     public AudioClip UISelect;
     public AudioClip UISubmit;
+    public AudioClip UIHover;
     public AudioClip Leaderboard;
     public AudioClip StorageDrop;
 
