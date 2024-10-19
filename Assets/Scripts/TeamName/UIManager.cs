@@ -5,17 +5,20 @@ using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Team Name Input")]
     public TMP_InputField teamNameInput;
     public TextMeshProUGUI warningText;
-
-    public Color errorColor = new Color(1, 0.7f, 0.7f); // Anpassbar im Editor
+    public Color errorColor = new Color(1, 0.7f, 0.7f);
 
     private const int minLength = 1;
     private const int maxLength = 15;
 
     private Color defaultInputFieldColor;
-
     private Coroutine warningCoroutine;
+
+    [Header("Transition")]
+    public Animator transition;
+    public float transitionTime = 1.2f;
 
     void Start()
     {
@@ -56,7 +59,9 @@ public class UIManager : MonoBehaviour
         }
 
         PlayerPrefs.SetString("TeamName", teamName);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        // Starte den Szenenwechsel mit Animation
+        StartCoroutine(PlayTransitionAndLoadScene());
     }
 
     private void ShowWarning(string message)
@@ -76,5 +81,20 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         warningText.text = "";
         teamNameInput.image.color = defaultInputFieldColor;
+    }
+
+    private IEnumerator PlayTransitionAndLoadScene()
+    {
+        // Spielt die Szenenübergangs-Animation ab
+        if (transition != null)
+        {
+            transition.SetTrigger("Start");
+        }
+
+        // Warten, bis die Animation fertig ist
+        yield return new WaitForSeconds(transitionTime);
+
+        // Lade die nächste Szene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

@@ -6,14 +6,19 @@ using UnityEngine.UI;
 
 public class TypewriterEffect : MonoBehaviour
 {
+    [Header("Typewriter Effect Settings")]
     public TextMeshProUGUI textDisplay;
     public string fullText = "Dein Text hier...";
     public float delay = 0.1f;
-    public AudioSource typingSound;
     public Button nextSceneButton;
 
     private string currentText = "";
 
+    [Header("Animator Settings")]
+    public Animator transition;
+    public float transitionTime = 1.2f;
+
+    [Header("Audio Settings")]
     public float minPitch = 0.9f;
     public float maxPitch = 1.1f;
 
@@ -32,10 +37,9 @@ public class TypewriterEffect : MonoBehaviour
             currentText = fullText.Substring(0, i);
             textDisplay.text = currentText;
 
-            if (typingSound != null && i % 2 == 0)
+            if (AudioManager.instance != null && i % 2 == 0)
             {
-                typingSound.pitch = Random.Range(minPitch, maxPitch);
-                typingSound.Play();
+                AudioManager.instance.PlaySFX(AudioManager.instance.Typewriter);
             }
 
             yield return new WaitForSeconds(delay);
@@ -46,6 +50,18 @@ public class TypewriterEffect : MonoBehaviour
 
     public void LoadNextScene()
     {
+        StartCoroutine(PlayTransitionAndLoadScene());
+    }
+
+    private IEnumerator PlayTransitionAndLoadScene()
+    {
+        if (transition != null)
+        {
+            transition.SetTrigger("Start");
+        }
+
+        yield return new WaitForSeconds(transitionTime);
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

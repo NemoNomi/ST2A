@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip UIHover;
     public AudioClip Leaderboard;
     public AudioClip StorageDrop;
+    public AudioClip Typewriter;
 
     #region Singleton
     public static AudioManager instance;
