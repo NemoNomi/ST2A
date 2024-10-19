@@ -1,8 +1,6 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -18,6 +16,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenuFirstSelected;
     [SerializeField] private GameObject audioSettingsFirstSelected;
     [SerializeField] private GameObject controlsSettingsFirstSelected;
+
     #endregion
 
     private void Start()
@@ -89,17 +88,6 @@ public class MainMenuManager : MonoBehaviour
     public void OnControlsSettingsBackPress()
     {
         OpenSettingsMenu();
-    }
-
-    public void OnPlayButton()
-    {
-        StartCoroutine(WaitAndLoadScene(1.5f));
-    }
-
-    private IEnumerator WaitAndLoadScene(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void OnQuitButton()
