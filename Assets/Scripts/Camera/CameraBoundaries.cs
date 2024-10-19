@@ -78,15 +78,15 @@ public class CameraBoundaries : MonoBehaviour
         Vector3 topRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, mainCamera.nearClipPlane));
 
         minXLeft = bottomLeft.x + buffer;
-        maxXLeft = topRight.x / 2f - buffer;
-        minYLeft = bottomLeft.y + buffer;
-        maxYLeft = topRight.y - buffer;
+        maxXLeft = topRight.x - buffer;
 
-        minXRight = topRight.x / 2f + buffer;
+        minXRight = bottomLeft.x + buffer;
         maxXRight = topRight.x - buffer;
-        minYRight = bottomLeft.y + buffer;
-        maxYRight = topRight.y - buffer;
+
+        minYLeft = minYRight = bottomLeft.y + buffer;
+        maxYLeft = maxYRight = topRight.y - buffer;
     }
+
 
     void ClampPlayerPositionsCamera()
     {
@@ -107,53 +107,52 @@ public class CameraBoundaries : MonoBehaviour
         }
     }
 
+
     // --------- PHYSISCHE KOLLISION MIT MIDDLE LINE ----------
-void ClampPlayerPositionsCollisions()
-{
-    if (player1 != null)
+    void ClampPlayerPositionsCollisions()
     {
-        foreach (var collider in middleLineCollidersPlayer1)
+        if (player1 != null)
         {
-            if (collider != null && player1.GetComponent<Collider2D>().IsTouching(collider))
+            foreach (var collider in middleLineCollidersPlayer1)
             {
-                Vector3 pos1 = player1.position;
-
-                if (Mathf.Abs(collider.bounds.size.x) > Mathf.Abs(collider.bounds.size.y))
+                if (collider != null && player1.GetComponent<Collider2D>().IsTouching(collider))
                 {
-                    pos1.y = Mathf.Clamp(pos1.y, collider.bounds.min.y - buffer, collider.bounds.max.y + buffer);
-                }
-                else
-                {
-                    pos1.x = Mathf.Clamp(pos1.x, collider.bounds.min.x - buffer, collider.bounds.max.x + buffer);
-                }
+                    Vector3 pos1 = player1.position;
 
-                player1.position = pos1;
+                    if (Mathf.Abs(collider.bounds.size.x) > Mathf.Abs(collider.bounds.size.y))
+                    {
+                        pos1.y = Mathf.Clamp(pos1.y, collider.bounds.min.y - buffer, collider.bounds.max.y + buffer);
+                    }
+                    else
+                    {
+                        pos1.x = Mathf.Clamp(pos1.x, collider.bounds.min.x - buffer, collider.bounds.max.x + buffer);
+                    }
+
+                    player1.position = pos1;
+                }
+            }
+        }
+
+        if (player2 != null)
+        {
+            foreach (var collider in middleLineCollidersPlayer2)
+            {
+                if (collider != null && player2.GetComponent<Collider2D>().IsTouching(collider))
+                {
+                    Vector3 pos2 = player2.position;
+
+                    if (Mathf.Abs(collider.bounds.size.x) > Mathf.Abs(collider.bounds.size.y))
+                    {
+                        pos2.y = Mathf.Clamp(pos2.y, collider.bounds.min.y - buffer, collider.bounds.max.y + buffer);
+                    }
+                    else
+                    {
+                        pos2.x = Mathf.Clamp(pos2.x, collider.bounds.min.x - buffer, collider.bounds.max.x + buffer);
+                    }
+
+                    player2.position = pos2;
+                }
             }
         }
     }
-
-    if (player2 != null)
-    {
-        foreach (var collider in middleLineCollidersPlayer2)
-        {
-            if (collider != null && player2.GetComponent<Collider2D>().IsTouching(collider))
-            {
-                Vector3 pos2 = player2.position;
-
-                if (Mathf.Abs(collider.bounds.size.x) > Mathf.Abs(collider.bounds.size.y))
-                {
-                    pos2.y = Mathf.Clamp(pos2.y, collider.bounds.min.y - buffer, collider.bounds.max.y + buffer);
-                }
-                else
-                {
-                    pos2.x = Mathf.Clamp(pos2.x, collider.bounds.min.x - buffer, collider.bounds.max.x + buffer);
-                }
-
-                player2.position = pos2;
-            }
-        }
-    }
-}
-
-
 }
