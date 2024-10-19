@@ -108,36 +108,52 @@ public class CameraBoundaries : MonoBehaviour
     }
 
     // --------- PHYSISCHE KOLLISION MIT MIDDLE LINE ----------
-    void ClampPlayerPositionsCollisions()
+void ClampPlayerPositionsCollisions()
+{
+    if (player1 != null)
     {
-        if (player1 != null)
+        foreach (var collider in middleLineCollidersPlayer1)
         {
-            Vector3 pos1 = player1.position;
-
-            foreach (var collider in middleLineCollidersPlayer1)
+            if (collider != null && player1.GetComponent<Collider2D>().IsTouching(collider))
             {
-                if (collider != null && player1.GetComponent<Collider2D>().IsTouching(collider))
+                Vector3 pos1 = player1.position;
+
+                if (Mathf.Abs(collider.bounds.size.x) > Mathf.Abs(collider.bounds.size.y))
                 {
-                    pos1.x = Mathf.Min(pos1.x, collider.bounds.min.x - buffer);
+                    pos1.y = Mathf.Clamp(pos1.y, collider.bounds.min.y - buffer, collider.bounds.max.y + buffer);
                 }
-            }
-
-            player1.position = pos1;
-        }
-
-        if (player2 != null)
-        {
-            Vector3 pos2 = player2.position;
-
-            foreach (var collider in middleLineCollidersPlayer2)
-            {
-                if (collider != null && player2.GetComponent<Collider2D>().IsTouching(collider))
+                else
                 {
-                    pos2.x = Mathf.Max(pos2.x, collider.bounds.max.x + buffer);
+                    pos1.x = Mathf.Clamp(pos1.x, collider.bounds.min.x - buffer, collider.bounds.max.x + buffer);
                 }
-            }
 
-            player2.position = pos2;
+                player1.position = pos1;
+            }
         }
     }
+
+    if (player2 != null)
+    {
+        foreach (var collider in middleLineCollidersPlayer2)
+        {
+            if (collider != null && player2.GetComponent<Collider2D>().IsTouching(collider))
+            {
+                Vector3 pos2 = player2.position;
+
+                if (Mathf.Abs(collider.bounds.size.x) > Mathf.Abs(collider.bounds.size.y))
+                {
+                    pos2.y = Mathf.Clamp(pos2.y, collider.bounds.min.y - buffer, collider.bounds.max.y + buffer);
+                }
+                else
+                {
+                    pos2.x = Mathf.Clamp(pos2.x, collider.bounds.min.x - buffer, collider.bounds.max.x + buffer);
+                }
+
+                player2.position = pos2;
+            }
+        }
+    }
+}
+
+
 }
