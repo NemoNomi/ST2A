@@ -4975,6 +4975,7 @@ MonoBehaviour:
   PauseMenuClose: {fileID: 8300000, guid: 53720a0eb52b7d74e88682d60312e171, type: 3}
   UISelect: {fileID: 8300000, guid: cbd19b14e61eeeb45933925652139ffd, type: 3}
   UISubmit: {fileID: 8300000, guid: 386fb82e407841844bdbc35f90d0857c, type: 3}
+  UIHover: {fileID: 8300000, guid: 386fb82e407841844bdbc35f90d0857c, type: 3}
   Leaderboard: {fileID: 8300000, guid: 5b0921e837f7f6744bbb1b88f81c02a6, type: 3}
   StorageDrop: {fileID: 8300000, guid: f722bb762e3d4c04589b7d05c49d2dbc, type: 3}
 --- !u!4 &1917201385
