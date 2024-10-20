@@ -76,14 +76,16 @@ public class LeaderboardManager : MonoBehaviour
     {
         for (int i = 0; i < teamNameTexts.Length; i++)
         {
+            string placeNumber = (i + 1) + ") ";
+
             if (i < leaderboardEntries.Count)
             {
-                teamNameTexts[i].text = leaderboardEntries[i].teamName;
+                teamNameTexts[i].text = placeNumber + leaderboardEntries[i].teamName;
                 timeTexts[i].text = FormatTime(leaderboardEntries[i].time);
             }
             else
             {
-                teamNameTexts[i].text = "";
+                teamNameTexts[i].text = placeNumber;
                 timeTexts[i].text = "";
             }
         }
@@ -103,6 +105,7 @@ public class LeaderboardManager : MonoBehaviour
             PlayerPrefs.SetString(currentRoundKey + "_TeamName" + i, leaderboardEntries[i].teamName);
             PlayerPrefs.SetFloat(currentRoundKey + "_TeamTime" + i, leaderboardEntries[i].time);
         }
+        PlayerPrefs.Save();
     }
 
     private void LoadLeaderboard()

@@ -59,14 +59,16 @@ public class OverallLeaderboardManager : MonoBehaviour
     {
         for (int i = 0; i < teamNameTexts.Length; i++)
         {
+            string placeNumber = (i + 1) + ") ";
+
             if (i < overallLeaderboardEntries.Count)
             {
-                teamNameTexts[i].text = overallLeaderboardEntries[i].teamName;
+                teamNameTexts[i].text = placeNumber + overallLeaderboardEntries[i].teamName;
                 timeTexts[i].text = FormatTime(overallLeaderboardEntries[i].time);
             }
             else
             {
-                teamNameTexts[i].text = "";
+                teamNameTexts[i].text = placeNumber;
                 timeTexts[i].text = "";
             }
         }
@@ -102,5 +104,17 @@ public class OverallLeaderboardManager : MonoBehaviour
                 overallLeaderboardEntries.Add(new LeaderboardEntry(teamName, time));
             }
         }
+    }
+
+    public void ResetOverallLeaderboard()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            PlayerPrefs.DeleteKey("Overall_TeamName" + i);
+            PlayerPrefs.DeleteKey("Overall_TeamTime" + i);
+        }
+
+        overallLeaderboardEntries.Clear();
+        UpdateOverallLeaderboardUI();
     }
 }
