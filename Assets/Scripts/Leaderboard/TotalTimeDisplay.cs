@@ -27,5 +27,10 @@ public class TotalTimeDisplay : MonoBehaviour
 
         totalTimeText.text = string.Format("Gesamtzeit: {0:00}:{1:00}", totalMinutes, totalSeconds);
         teamNameText.text = "Team: " + teamName;
+
+        PlayerPrefs.SetFloat("TotalTime", totalTime);
+        PlayerPrefs.SetString("LastTeamName", teamName);
+
+        PlayerPrefs.Save();
     }
 }

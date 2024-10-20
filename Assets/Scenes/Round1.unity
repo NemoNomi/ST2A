@@ -12304,6 +12304,7 @@ MonoBehaviour:
   UIHover: {fileID: 0}
   Leaderboard: {fileID: 8300000, guid: 5b0921e837f7f6744bbb1b88f81c02a6, type: 3}
   StorageDrop: {fileID: 8300000, guid: f722bb762e3d4c04589b7d05c49d2dbc, type: 3}
+  Typewriter: {fileID: 0}
 --- !u!4 &1905738139
 Transform:
   m_ObjectHideFlags: 0
