@@ -8,39 +8,28 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     #region UI Elements
-    [Header("UI Elements")]
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI finalTimeText;
     public GameObject gameOverPanel;
     #endregion
 
     #region Leaderboard Settings
-    [Header("Leaderboard Settings")]
     public LeaderboardManager leaderboardManager;
     #endregion
 
-    #region Game State
     private float timer = 0f;
     private bool timerRunning = false;
     private bool isGameOver = false;
-    #endregion
 
     #region Storage and Collectibles
-    [Header("Storage Controllers")]
     public StorageController[] player1Storages;
     public StorageController[] player2Storages;
-
-    [Header("Collectibles Settings")]
     public CollectibleController[] allCollectibles;
     #endregion
 
-    #region Timer Settings
-    [Header("Timer Settings")]
     public float collectibleStartDelay = 3f;
     private string teamName;
-    #endregion
 
-    #region Unity Callbacks
     void Awake()
     {
         if (Instance == null)
@@ -78,9 +67,7 @@ public class GameManager : MonoBehaviour
             UpdateTimerUI();
         }
     }
-    #endregion
 
-    #region Timer Functions
     IEnumerator ActivateCollectiblesAfterDelay()
     {
         yield return new WaitForSeconds(collectibleStartDelay);
@@ -96,13 +83,11 @@ public class GameManager : MonoBehaviour
     public void StartTimer()
     {
         timerRunning = true;
-        Debug.Log("Timer gestartet.");
     }
 
     public void StopTimer()
     {
         timerRunning = false;
-        Debug.Log("Timer gestoppt.");
     }
 
     void UpdateTimerUI()
@@ -111,9 +96,7 @@ public class GameManager : MonoBehaviour
         int seconds = Mathf.FloorToInt(timer % 60F);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
-    #endregion
 
-    #region Game Flow
     public void CheckGameStatus()
     {
         if (AllStoragesFilled(player1Storages) && AllStoragesFilled(player2Storages))
@@ -134,31 +117,36 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    void EndGame()
+void EndGame()
+{
+    StopTimer();
+    float roundedTime = Mathf.Round(timer);
+    
+    finalTimeText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(roundedTime / 60F), Mathf.FloorToInt(roundedTime % 60F));
+
+    gameOverPanel.SetActive(true);
+    isGameOver = true;
+
+    PlayerController[] players = FindObjectsOfType<PlayerController>();
+    foreach (PlayerController player in players)
     {
-        StopTimer();
-        finalTimeText.text = "Zeit: " + timerText.text;
-        gameOverPanel.SetActive(true);
-        isGameOver = true;
-
-        PlayerController[] players = FindObjectsOfType<PlayerController>();
-        foreach (PlayerController player in players)
-        {
-            player.DisableMovement();
-        }
-
-        Debug.Log("Final Timer (to be added to Leaderboard): " + timer);
-
-        leaderboardManager.AddToLeaderboard(teamName, timer);
+        player.DisableMovement();
     }
+
+    Debug.Log("Final Timer (to be added to Leaderboard): " + roundedTime);
+
+    int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+    PlayerPrefs.SetFloat("RoundTime_" + sceneIndex, roundedTime);
+
+    leaderboardManager.AddToLeaderboard(teamName, roundedTime);
+}
+
 
     public bool IsGameOver()
     {
         return isGameOver;
     }
-    #endregion
 
-    #region Scene Management
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene(0);
@@ -168,5 +156,4 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    #endregion
 }
