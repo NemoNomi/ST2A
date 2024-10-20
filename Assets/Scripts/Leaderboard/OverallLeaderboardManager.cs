@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 
 public class OverallLeaderboardManager : MonoBehaviour
@@ -21,6 +22,10 @@ public class OverallLeaderboardManager : MonoBehaviour
             time = t;
         }
     }
+
+    private int resetClickCount = 0;
+    private float resetTimer = 5f;
+    private bool isResetTimerRunning = false;
 
     void Start()
     {
@@ -108,13 +113,42 @@ public class OverallLeaderboardManager : MonoBehaviour
 
     public void ResetOverallLeaderboard()
     {
-        for (int i = 0; i < 10; i++)
+        if (!isResetTimerRunning)
         {
-            PlayerPrefs.DeleteKey("Overall_TeamName" + i);
-            PlayerPrefs.DeleteKey("Overall_TeamTime" + i);
+            StartCoroutine(ResetButtonSequence());
+        }
+        else
+        {
+            resetClickCount++;
         }
 
-        overallLeaderboardEntries.Clear();
-        UpdateOverallLeaderboardUI();
+        if (resetClickCount >= 3)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                PlayerPrefs.DeleteKey("Overall_TeamName" + i);
+                PlayerPrefs.DeleteKey("Overall_TeamTime" + i);
+            }
+
+            overallLeaderboardEntries.Clear();
+            UpdateOverallLeaderboardUI();
+
+            resetClickCount = 0;
+        }
+    }
+
+    private IEnumerator ResetButtonSequence()
+    {
+        resetClickCount = 1;
+        isResetTimerRunning = true;
+
+        yield return new WaitForSeconds(resetTimer);
+
+        if (resetClickCount < 3)
+        {
+            resetClickCount = 0;
+        }
+
+        isResetTimerRunning = false;
     }
 }

@@ -10,13 +10,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenuPanel;
     [SerializeField] private GameObject audioSettingsMenuPanel;
     [SerializeField] private GameObject controlsSettingsMenuPanel;
-
-    [Header("First Selected Options")]
-    [SerializeField] private GameObject mainMenuFirstSelected;
-    [SerializeField] private GameObject settingsMenuFirstSelected;
-    [SerializeField] private GameObject audioSettingsFirstSelected;
-    [SerializeField] private GameObject controlsSettingsFirstSelected;
-
     #endregion
 
     private void Start()
@@ -27,7 +20,6 @@ public class MainMenuManager : MonoBehaviour
     private void ShowMainMenu()
     {
         SetPanelVisibility(mainMenuPanel);
-        EventSystem.current.SetSelectedGameObject(mainMenuFirstSelected);
     }
 
     private void SetPanelVisibility(GameObject activePanel)
@@ -43,19 +35,16 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenuPanel.SetActive(true);
         SetPanelVisibility(settingsMenuPanel);
-        EventSystem.current.SetSelectedGameObject(settingsMenuFirstSelected);
     }
 
     private void OpenAudioSettingsMenu()
     {
         SetPanelVisibility(audioSettingsMenuPanel);
-        EventSystem.current.SetSelectedGameObject(audioSettingsFirstSelected);
     }
 
     private void OpenControlsSettingsMenu()
     {
         SetPanelVisibility(controlsSettingsMenuPanel);
-        EventSystem.current.SetSelectedGameObject(controlsSettingsFirstSelected);
     }
     #endregion
 
