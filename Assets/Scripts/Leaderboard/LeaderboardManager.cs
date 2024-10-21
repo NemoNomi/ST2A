@@ -72,7 +72,7 @@ public class LeaderboardManager : MonoBehaviour
         audioManager.PlaySFX(audioManager.Leaderboard);
     }
 
-    private void UpdateLeaderboardUI()
+    public void UpdateLeaderboardUI()
     {
         for (int i = 0; i < teamNameTexts.Length; i++)
         {
