@@ -1,5 +1,6 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,6 +17,10 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private Button pauseButton;
     [SerializeField] private Sprite pauseSprite;
     [SerializeField] private Sprite defaultSprite;
+
+    [Header("Animator Settings")]
+    public Animator transition;
+    public float transitionTime = 1.2f;
 
     private bool isPaused = false;
     private Image pauseButtonImage;
@@ -149,8 +154,24 @@ public class PauseMenuManager : MonoBehaviour
     public void OnMainMenuPress()
     {
         Time.timeScale = 1f;
-        AudioManager.instance.SetLowpassFilter(22000f);
-        SceneManager.LoadScene(0);
+        StartCoroutine(PlayTransitionAndLoadScene(0));
+    }
+
+    public void RestartGame()
+    {
+        StartCoroutine(PlayTransitionAndLoadScene(SceneManager.GetActiveScene().buildIndex));
+    }
+
+    private IEnumerator PlayTransitionAndLoadScene(int sceneIndex)
+    {
+        if (transition != null)
+        {
+            transition.SetTrigger("Start");
+        }
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(sceneIndex);
     }
 
     public void OnSettingsPress()

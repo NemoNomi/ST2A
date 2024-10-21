@@ -2084,6 +2084,8 @@ MonoBehaviour:
   pauseButton: {fileID: 1618383040}
   pauseSprite: {fileID: 21300000, guid: 2629ec70065a32f4bbe6d7cfa0632ba4, type: 3}
   defaultSprite: {fileID: 21300000, guid: 008e018f7fbdc334c938e3d2af51ec3e, type: 3}
+  transition: {fileID: 957409249}
+  transitionTime: 1.2
 --- !u!4 &324020326
 Transform:
   m_ObjectHideFlags: 0
@@ -4118,7 +4120,6 @@ GameObject:
   - component: {fileID: 661452713}
   - component: {fileID: 661452712}
   - component: {fileID: 661452711}
-  - component: {fileID: 661452710}
   - component: {fileID: 661452709}
   m_Layer: 5
   m_Name: ButtonResume
@@ -4168,18 +4169,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &661452710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 661452707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15fdf9231529ee649827e5eae6968251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &661452711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12109,7 +12098,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1500364936616421193, guid: fa9bf6dd2b127304ba97d27cd3482d36, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6288732066727862980, guid: fa9bf6dd2b127304ba97d27cd3482d36, type: 3}
       propertyPath: m_LocalPosition.x

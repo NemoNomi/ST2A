@@ -2638,6 +2638,8 @@ MonoBehaviour:
   pauseButton: {fileID: 1487676548}
   pauseSprite: {fileID: 21300000, guid: 2629ec70065a32f4bbe6d7cfa0632ba4, type: 3}
   defaultSprite: {fileID: 21300000, guid: 008e018f7fbdc334c938e3d2af51ec3e, type: 3}
+  transition: {fileID: 385708075}
+  transitionTime: 1.2
 --- !u!4 &376658920
 Transform:
   m_ObjectHideFlags: 0
@@ -6255,7 +6257,6 @@ GameObject:
   - component: {fileID: 833486266}
   - component: {fileID: 833486265}
   - component: {fileID: 833486264}
-  - component: {fileID: 833486263}
   - component: {fileID: 833486262}
   m_Layer: 5
   m_Name: ButtonResume
@@ -6305,18 +6306,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &833486263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833486260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15fdf9231529ee649827e5eae6968251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &833486264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13628,6 +13617,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelLoaderMainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 1500364936616421193, guid: fa9bf6dd2b127304ba97d27cd3482d36, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6288732066727862980, guid: fa9bf6dd2b127304ba97d27cd3482d36, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -13673,6 +13666,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa9bf6dd2b127304ba97d27cd3482d36, type: 3}
+--- !u!114 &1914437794 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4622024923245356725, guid: fa9bf6dd2b127304ba97d27cd3482d36, type: 3}
+  m_PrefabInstance: {fileID: 1914437793}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5ed395fb34c0554e944a766ff675019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1925296968
 GameObject:
   m_ObjectHideFlags: 0
@@ -14752,6 +14756,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2081566188}
         m_TargetAssemblyTypeName: TypewriterEffect, Assembly-CSharp
         m_MethodName: LoadNextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1914437794}
+        m_TargetAssemblyTypeName: LevelLoaderMainMenu, Assembly-CSharp
+        m_MethodName: OnPlayButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
