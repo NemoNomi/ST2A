@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     public Color errorColor = new Color(1, 0.7f, 0.7f);
 
     private const int minLength = 1;
-    private const int maxLength = 15;
+    private const int maxLength = 10;
 
     private Color defaultInputFieldColor;
     private Coroutine warningCoroutine;
@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
     {
         if (input.Length > maxLength)
         {
-            ShowWarning($"Maximal {maxLength} Zeichen erlaubt!");
+            ShowWarning($"Maximum {maxLength} characters allowed.");
 
             teamNameInput.text = input.Substring(0, maxLength);
 
@@ -48,19 +48,18 @@ public class UIManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(teamName))
         {
-            ShowWarning("Bitte gib einen Teamnamen ein.");
+            ShowWarning("Please enter a team name.");
             return;
         }
 
         if (teamName.Length > maxLength)
         {
-            ShowWarning($"Maximal {maxLength} Zeichen erlaubt.");
+            ShowWarning($"Maximum {maxLength} characters allowed.");
             return;
         }
 
         PlayerPrefs.SetString("TeamName", teamName);
 
-        // Starte den Szenenwechsel mit Animation
         StartCoroutine(PlayTransitionAndLoadScene());
     }
 
@@ -85,16 +84,13 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator PlayTransitionAndLoadScene()
     {
-        // Spielt die Szenenübergangs-Animation ab
         if (transition != null)
         {
             transition.SetTrigger("Start");
         }
 
-        // Warten, bis die Animation fertig ist
         yield return new WaitForSeconds(transitionTime);
 
-        // Lade die nächste Szene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

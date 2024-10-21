@@ -12,16 +12,13 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private GameObject audioMenuPanel;
     [SerializeField] private GameObject controlsMenuPanel;
 
-    [Header("First Selected Options")]
-    [SerializeField] private GameObject pauseMenuFirstSelected;
-    [SerializeField] private GameObject settingsMenuFirstSelected;
-    [SerializeField] private GameObject audioMenuFirstSelected;
-    [SerializeField] private GameObject controlsMenuFirstSelected;
-
     [Header("Pause Button")]
     [SerializeField] private Button pauseButton;
+    [SerializeField] private Sprite pauseSprite;
+    [SerializeField] private Sprite defaultSprite;
 
     private bool isPaused = false;
+    private Image pauseButtonImage;
 
     private void Start()
     {
@@ -30,6 +27,7 @@ public class PauseMenuManager : MonoBehaviour
         if (pauseButton != null)
         {
             pauseButton.onClick.AddListener(() => TogglePauseMenu());
+            pauseButtonImage = pauseButton.GetComponent<Image>();
         }
     }
 
@@ -77,6 +75,11 @@ public class PauseMenuManager : MonoBehaviour
         {
             AudioManager.instance.SetLowpassFilter(500f);
         }
+
+        if (pauseButtonImage != null && pauseSprite != null)
+        {
+            pauseButtonImage.sprite = pauseSprite;
+        }
     }
 
     private void ResumeGame()
@@ -86,6 +89,11 @@ public class PauseMenuManager : MonoBehaviour
         CloseAllMenus();
         AudioManager.instance.PlayUI(AudioManager.instance.PauseMenuClose);
         AudioManager.instance.SetLowpassFilter(22000f);
+
+        if (pauseButtonImage != null && defaultSprite != null)
+        {
+            pauseButtonImage.sprite = defaultSprite;
+        }
     }
 
     private void SetMenuVisibility(bool isVisible)
@@ -100,7 +108,6 @@ public class PauseMenuManager : MonoBehaviour
         settingsMenuPanel.SetActive(false);
         audioMenuPanel.SetActive(false);
         controlsMenuPanel.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(pauseMenuFirstSelected);
     }
 
     private void OpenSettingsMenu()
@@ -109,7 +116,6 @@ public class PauseMenuManager : MonoBehaviour
         settingsMenuPanel.SetActive(true);
         audioMenuPanel.SetActive(false);
         controlsMenuPanel.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(settingsMenuFirstSelected);
     }
 
     private void OpenAudioMenu()
@@ -117,7 +123,6 @@ public class PauseMenuManager : MonoBehaviour
         settingsMenuPanel.SetActive(false);
         audioMenuPanel.SetActive(true);
         controlsMenuPanel.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(audioMenuFirstSelected);
         AudioManager.instance.SetLowpassFilter(22000f);
     }
 
@@ -125,7 +130,6 @@ public class PauseMenuManager : MonoBehaviour
     {
         settingsMenuPanel.SetActive(false);
         controlsMenuPanel.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(controlsMenuFirstSelected);
     }
 
     private void CloseAllMenus()
@@ -135,7 +139,6 @@ public class PauseMenuManager : MonoBehaviour
         settingsMenuPanel.SetActive(false);
         audioMenuPanel.SetActive(false);
         controlsMenuPanel.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void OnResumePress()
@@ -143,7 +146,7 @@ public class PauseMenuManager : MonoBehaviour
         ResumeGame();
     }
 
-     public void OnMainMenuPress()
+    public void OnMainMenuPress()
     {
         Time.timeScale = 1f;
         AudioManager.instance.SetLowpassFilter(22000f);
