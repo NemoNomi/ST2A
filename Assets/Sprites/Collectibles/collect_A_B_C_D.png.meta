@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9121df5a98ce6484faf3b1a7e5a935a8
+guid: 28143b53a21437b45af0aa74f491fd4e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: collect_A - Copy_0
+      name: collect_A_B_C_D_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82958b3c04ac91947a850e78d5296338
+      internalID: -1026805474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: collect_A_B_C_D_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0e34037015be4648a356d389b3a00b5
+      internalID: 1142408518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: collect_A_B_C_D_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 942eb71b38b700741a0c75d42b119c80
+      internalID: -805861087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: collect_A_B_C_D_3
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b38ceabf39046544be0aa3d0947839f
+      internalID: 1362563539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: collect_A_B_C_D_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0e42aa658c49fc4d8a60d026bef6794
+      internalID: -174298293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: collect_A_B_C_D_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4072a63596f505e45870f7764a8028b1
+      internalID: 1245726760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: collect_A_B_C_D_6
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0970e1e7dcf6a1b40bb6cb36b5157108
-      internalID: 1181699054
+      spriteID: e1ab03bbd86677e4ba8538953b9a2cac
+      internalID: -2093305625
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collect_A - Copy_1
+      name: collect_A_B_C_D_7
       rect:
         serializedVersion: 2
         x: 16
@@ -145,8 +271,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04ab148fd9a18f4438e8afb1bbb54d73
-      internalID: 238460745
+      spriteID: ea09e0154bc38c24bae6c6a12c3e415a
+      internalID: -1196082081
       vertices: []
       indices: 
       edges: []
@@ -162,8 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      collect_A - Copy_0: 1181699054
-      collect_A - Copy_1: 238460745
+      collect_A_B_C_D_0: -1026805474
+      collect_A_B_C_D_1: 1142408518
+      collect_A_B_C_D_2: -805861087
+      collect_A_B_C_D_3: 1362563539
+      collect_A_B_C_D_4: -174298293
+      collect_A_B_C_D_5: 1245726760
+      collect_A_B_C_D_6: -2093305625
+      collect_A_B_C_D_7: -1196082081
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
