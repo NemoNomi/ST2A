@@ -4599,11 +4599,9 @@ MonoBehaviour:
   settingsMenuPanel: {fileID: 1781422820}
   audioMenuPanel: {fileID: 1219070673}
   controlsMenuPanel: {fileID: 526743360}
-  pauseMenuFirstSelected: {fileID: 346879815}
-  settingsMenuFirstSelected: {fileID: 508009564}
-  audioMenuFirstSelected: {fileID: 1253287192}
-  controlsMenuFirstSelected: {fileID: 263558687}
   pauseButton: {fileID: 1851250788}
+  pauseSprite: {fileID: 0}
+  defaultSprite: {fileID: 0}
 --- !u!4 &616502901
 Transform:
   m_ObjectHideFlags: 0
@@ -11985,6 +11983,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1131127842182571146, guid: fa9bf6dd2b127304ba97d27cd3482d36, type: 3}
+      propertyPath: m_Color.b
+      value: 0.10980392
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131127842182571146, guid: fa9bf6dd2b127304ba97d27cd3482d36, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131127842182571146, guid: fa9bf6dd2b127304ba97d27cd3482d36, type: 3}
+      propertyPath: m_Color.r
+      value: 0.12941177
+      objectReference: {fileID: 0}
     - target: {fileID: 1324558166893164090, guid: fa9bf6dd2b127304ba97d27cd3482d36, type: 3}
       propertyPath: m_Name
       value: LevelLoaderMainMenu

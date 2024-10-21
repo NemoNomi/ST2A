@@ -12,6 +12,7 @@ public class ObjectSlideIn : MonoBehaviour
     [Header("Movement Settings")]
     public float slideDuration = 1.5f;
     public float offScreenOffset = 1000f;
+    public float interObjectDelay = 0.3f;
 
     private Vector3[] leftToRightStartPositions;
     private Vector3[] rightToLeftStartPositions;
@@ -43,14 +44,16 @@ public class ObjectSlideIn : MonoBehaviour
 
     void StartSlideInAnimations()
     {
-        for (int i = 0; i < leftToRightObjects.Length; i++)
-        {
-            StartCoroutine(SlideObject(leftToRightObjects[i], leftToRightStartPositions[i], slideDuration));
-        }
+        StartCoroutine(SlideObjectsWithDelay(leftToRightObjects, leftToRightStartPositions, slideDuration, interObjectDelay));
+        StartCoroutine(SlideObjectsWithDelay(rightToLeftObjects, rightToLeftStartPositions, slideDuration, interObjectDelay));
+    }
 
-        for (int i = 0; i < rightToLeftObjects.Length; i++)
+    IEnumerator SlideObjectsWithDelay(GameObject[] objects, Vector3[] targetPositions, float duration, float delay)
+    {
+        for (int i = 0; i < objects.Length; i++)
         {
-            StartCoroutine(SlideObject(rightToLeftObjects[i], rightToLeftStartPositions[i], slideDuration));
+            StartCoroutine(SlideObject(objects[i], targetPositions[i], duration));
+            yield return new WaitForSeconds(delay);
         }
     }
 
