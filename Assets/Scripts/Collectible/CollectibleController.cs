@@ -7,7 +7,14 @@ public class CollectibleController : MonoBehaviour
     public string collectibleGroup;
     private Transform playerHolding;
     private Vector3 offset = new Vector3(0, 1f, 0);
+    private Vector3 originalScale;
+
     #endregion
+
+    void Start()
+    {
+        originalScale = transform.localScale;
+    }
 
     #region Collect and Drop Methods
     public void Collect(Transform player)
@@ -15,6 +22,8 @@ public class CollectibleController : MonoBehaviour
         isCollected = true;
         playerHolding = player;
         transform.position = player.position + offset;
+
+        transform.localScale = originalScale * 0.8f;
     }
 
     public void Drop(Vector3 dropPosition)
@@ -22,6 +31,8 @@ public class CollectibleController : MonoBehaviour
         isCollected = false;
         playerHolding = null;
         transform.position = dropPosition;
+
+        transform.localScale = originalScale;
     }
 
     public void Drop(Vector3 dropPosition, StorageController storage)
@@ -31,6 +42,9 @@ public class CollectibleController : MonoBehaviour
             isCollected = false;
             playerHolding = null;
             transform.position = dropPosition;
+
+            transform.localScale = originalScale;
+
             storage.AddCollectible(this);
         }
         else

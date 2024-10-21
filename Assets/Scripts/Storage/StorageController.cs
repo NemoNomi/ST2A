@@ -12,6 +12,9 @@ public class StorageController : MonoBehaviour
     private Color originalColor;
     private SpriteRenderer sr;
     private CollectibleController storedCollectible;
+    
+    [Header("Color Settings")]
+    public Color filledColor = Color.green;
     #endregion
 
     #region Group-based Restriction
@@ -72,7 +75,7 @@ public class StorageController : MonoBehaviour
         if (currentCollectibles >= requiredCollectibles)
         {
             IsFilled = true;
-            SetStorageColor(Color.green);
+            SetStorageColor(filledColor);
         }
         else
         {

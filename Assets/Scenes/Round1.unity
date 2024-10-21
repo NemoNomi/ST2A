@@ -6591,7 +6591,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 9.3}
+  m_AnchoredPosition: {x: 0, y: 9.299988}
   m_SizeDelta: {x: 141.49, y: 16.21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &462796165
@@ -13711,7 +13711,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.19, y: 1.2, z: 0}
-  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1450449088}
@@ -13833,8 +13833,8 @@ SpriteRenderer:
   m_SortingLayerID: 949893451
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.028301895, b: 0.89083666, a: 1}
+  m_Sprite: {fileID: 1882167824, guid: bd12224427478c843bd62008c54d8f9c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -16600,7 +16600,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 7.099991}
+  m_AnchoredPosition: {x: 0, y: 7.0999756}
   m_SizeDelta: {x: 117.3, y: 14.199997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1714869413
@@ -19065,7 +19065,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.1, y: -0.16, z: 0}
-  m_LocalScale: {x: 4.4696646, y: 4.4696646, z: 4.4696646}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1525374497}
@@ -19111,8 +19111,8 @@ SpriteRenderer:
   m_SortingLayerID: -2063266221
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.9528302, g: 0.0269669, b: 0.0269669, a: 1}
+  m_Sprite: {fileID: 1197577598, guid: bd12224427478c843bd62008c54d8f9c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -19156,9 +19156,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
