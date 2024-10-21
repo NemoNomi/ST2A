@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI finalTimeText;
     public GameObject gameOverPanel;
+
+    public GameObject countdownCanvas;
+    public TextMeshProUGUI countdownText; 
     #endregion
 
     #region Leaderboard Settings
@@ -28,6 +31,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public float collectibleStartDelay = 3f;
+    public float countdownStartDelay = 1f;
+    public float readyDisplayDuration = 1.5f;
     private string teamName;
 
     void Awake()
@@ -56,7 +61,7 @@ public class GameManager : MonoBehaviour
             collectible.gameObject.SetActive(false);
         }
 
-        StartCoroutine(ActivateCollectiblesAfterDelay());
+        StartCoroutine(StartCountdownAndActivateCollectibles());
     }
 
     void Update()
@@ -68,9 +73,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator ActivateCollectiblesAfterDelay()
+    IEnumerator StartCountdownAndActivateCollectibles()
     {
-        yield return new WaitForSeconds(collectibleStartDelay);
+        yield return new WaitForSeconds(countdownStartDelay);
+
+        countdownCanvas.SetActive(true);
+
+        countdownText.text = "Ready?";
+        yield return new WaitForSeconds(readyDisplayDuration);
+
+        for (int i = 3; i > 0; i--)
+        {
+            countdownText.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+
+        countdownText.text = "Go!";
+        yield return new WaitForSeconds(1f);
+
+        countdownCanvas.SetActive(false);
 
         foreach (CollectibleController collectible in allCollectibles)
         {
@@ -117,30 +138,29 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-void EndGame()
-{
-    StopTimer();
-    float roundedTime = Mathf.Round(timer);
-    
-    finalTimeText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(roundedTime / 60F), Mathf.FloorToInt(roundedTime % 60F));
-
-    gameOverPanel.SetActive(true);
-    isGameOver = true;
-
-    PlayerController[] players = FindObjectsOfType<PlayerController>();
-    foreach (PlayerController player in players)
+    void EndGame()
     {
-        player.DisableMovement();
+        StopTimer();
+        float roundedTime = Mathf.Round(timer);
+
+        finalTimeText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(roundedTime / 60F), Mathf.FloorToInt(roundedTime % 60F));
+
+        gameOverPanel.SetActive(true);
+        isGameOver = true;
+
+        PlayerController[] players = FindObjectsOfType<PlayerController>();
+        foreach (PlayerController player in players)
+        {
+            player.DisableMovement();
+        }
+
+        Debug.Log("Final Timer (to be added to Leaderboard): " + roundedTime);
+
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        PlayerPrefs.SetFloat("RoundTime_" + sceneIndex, roundedTime);
+
+        leaderboardManager.AddToLeaderboard(teamName, roundedTime);
     }
-
-    Debug.Log("Final Timer (to be added to Leaderboard): " + roundedTime);
-
-    int sceneIndex = SceneManager.GetActiveScene().buildIndex;
-    PlayerPrefs.SetFloat("RoundTime_" + sceneIndex, roundedTime);
-
-    leaderboardManager.AddToLeaderboard(teamName, roundedTime);
-}
-
 
     public bool IsGameOver()
     {
