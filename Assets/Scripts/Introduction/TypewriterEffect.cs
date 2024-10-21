@@ -18,6 +18,9 @@ public class TypewriterEffect : MonoBehaviour
     public Button nextButton;
     public Button nextSceneButton;
 
+    public GameObject additionalCanvas;
+    public GameObject secondCanvas;
+
     private string currentText = "";
     private bool skipTypewriter = false;
 
@@ -30,9 +33,14 @@ public class TypewriterEffect : MonoBehaviour
         nextButton.gameObject.SetActive(false);
         nextSceneButton.gameObject.SetActive(false);
 
+        additionalCanvas.SetActive(false);
+        secondCanvas.SetActive(false);
+
         StartCoroutine(ShowTextWithDelay(part1Text, () =>
         {
             nextButton.gameObject.SetActive(true);
+
+            additionalCanvas.SetActive(true);
         }));
     }
 
@@ -63,9 +71,13 @@ public class TypewriterEffect : MonoBehaviour
         nextButton.gameObject.SetActive(false);
         skipTypewriter = false;
 
+        additionalCanvas.SetActive(false);
+
         StartCoroutine(ShowTextWithDelay(part2Text, () =>
         {
             nextSceneButton.gameObject.SetActive(true);
+
+            secondCanvas.SetActive(true);
         }));
     }
 
