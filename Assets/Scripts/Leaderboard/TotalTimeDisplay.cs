@@ -15,31 +15,33 @@ public class TotalTimeDisplay : MonoBehaviour
     public float delayBeforeCanvasActivation = 1.0f;
 
     void Start()
+{
+    float totalTime = 0f;
+    string teamName = PlayerPrefs.GetString("TeamName", "Unbekanntes Team");
+
+    for (int i = 1; i <= UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings; i++)
     {
-        float totalTime = 0f;
-        string teamName = PlayerPrefs.GetString("TeamName", "Unbekanntes Team");
-
-        for (int i = 1; i <= UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings; i++)
+        // Summiere nur die Zeiten des aktuellen Teams
+        if (PlayerPrefs.HasKey(teamName + "_RoundTime_" + i))
         {
-            if (PlayerPrefs.HasKey("RoundTime_" + i))
-            {
-                float roundTime = PlayerPrefs.GetFloat("RoundTime_" + i);
-                totalTime += roundTime;
-            }
+            float roundTime = PlayerPrefs.GetFloat(teamName + "_RoundTime_" + i);
+            totalTime += roundTime;
         }
-
-        int totalMinutes = Mathf.FloorToInt(totalTime / 60F);
-        int totalSeconds = Mathf.FloorToInt(totalTime % 60F);
-        string totalFormattedTime = string.Format("{0:00}:{1:00}", totalMinutes, totalSeconds);
-
-        PlayerPrefs.SetFloat("TotalTime", totalTime);
-        PlayerPrefs.SetString("LastTeamName", teamName);
-        PlayerPrefs.Save();
-
-        finalCanvas.SetActive(false);
-
-        StartCoroutine(TypeWriterEffect(teamName, totalFormattedTime));
     }
+
+    int totalMinutes = Mathf.FloorToInt(totalTime / 60F);
+    int totalSeconds = Mathf.FloorToInt(totalTime % 60F);
+    string totalFormattedTime = string.Format("{0:00}:{1:00}", totalMinutes, totalSeconds);
+
+    PlayerPrefs.SetFloat("TotalTime", totalTime);
+    PlayerPrefs.SetString("LastTeamName", teamName);
+    PlayerPrefs.Save();
+
+    finalCanvas.SetActive(false);
+
+    StartCoroutine(TypeWriterEffect(teamName, totalFormattedTime));
+}
+
 
     IEnumerator TypeWriterEffect(string teamName, string totalTime)
     {

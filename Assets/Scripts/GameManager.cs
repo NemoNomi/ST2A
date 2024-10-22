@@ -138,29 +138,32 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    void EndGame()
+void EndGame()
+{
+    StopTimer();
+    float roundedTime = Mathf.Round(timer);
+
+    finalTimeText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(roundedTime / 60F), Mathf.FloorToInt(roundedTime % 60F));
+
+    gameOverPanel.SetActive(true);
+    isGameOver = true;
+
+    PlayerController[] players = FindObjectsOfType<PlayerController>();
+    foreach (PlayerController player in players)
     {
-        StopTimer();
-        float roundedTime = Mathf.Round(timer);
-
-        finalTimeText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(roundedTime / 60F), Mathf.FloorToInt(roundedTime % 60F));
-
-        gameOverPanel.SetActive(true);
-        isGameOver = true;
-
-        PlayerController[] players = FindObjectsOfType<PlayerController>();
-        foreach (PlayerController player in players)
-        {
-            player.DisableMovement();
-        }
-
-        Debug.Log("Final Timer (to be added to Leaderboard): " + roundedTime);
-
-        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        PlayerPrefs.SetFloat("RoundTime_" + sceneIndex, roundedTime);
-
-        leaderboardManager.AddToLeaderboard(teamName, roundedTime);
+        player.DisableMovement();
     }
+
+    Debug.Log("Final Timer (to be added to Leaderboard): " + roundedTime);
+
+    int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+    string teamName = PlayerPrefs.GetString("TeamName", "No Team");
+
+    PlayerPrefs.SetFloat(teamName + "_RoundTime_" + sceneIndex, roundedTime);
+
+    leaderboardManager.AddToLeaderboard(teamName, roundedTime);
+}
+
 
     public bool IsGameOver()
     {

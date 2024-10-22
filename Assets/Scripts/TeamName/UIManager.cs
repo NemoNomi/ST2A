@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI warningText;
     public Color errorColor = new Color(1, 0.7f, 0.7f);
 
-    private const int minLength = 1;
     private const int maxLength = 10;
 
     private Color defaultInputFieldColor;
@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     {
         defaultInputFieldColor = teamNameInput.image.color;
         teamNameInput.onValueChanged.AddListener(OnInputValueChanged);
+        warningText.text = "";
     }
 
     private void OnInputValueChanged(string input)
@@ -58,9 +59,44 @@ public class UIManager : MonoBehaviour
             return;
         }
 
+        if (CheckIfTeamNameExists(teamName))
+        {
+            ShowWarning($"The team name '{teamName}' already exists. Please choose a different name.");
+            return;
+        }
+
+        SaveTeamName(teamName);
+
         PlayerPrefs.SetString("TeamName", teamName);
+        PlayerPrefs.Save();
 
         StartCoroutine(PlayTransitionAndLoadScene());
+    }
+
+    private bool CheckIfTeamNameExists(string teamName)
+    {
+        List<string> savedTeamNames = GetSavedTeamNames();
+
+        return savedTeamNames.Contains(teamName);
+    }
+
+    private void SaveTeamName(string teamName)
+    {
+        List<string> savedTeamNames = GetSavedTeamNames();
+
+        if (!savedTeamNames.Contains(teamName))
+        {
+            savedTeamNames.Add(teamName);
+            PlayerPrefs.SetString("TeamNames", string.Join(",", savedTeamNames));
+            PlayerPrefs.Save();
+        }
+    }
+
+    private List<string> GetSavedTeamNames()
+    {
+        string savedNamesString = PlayerPrefs.GetString("TeamNames", "");
+        List<string> savedTeamNames = new List<string>(savedNamesString.Split(new char[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries));
+        return savedTeamNames;
     }
 
     private void ShowWarning(string message)
