@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 public class StorageController : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class StorageController : MonoBehaviour
     #endregion
 
     #region Group-based Restriction
-    public string allowedGroup;
+    [Header("Allowed Groups")]
+    public string[] allowedGroups;
     #endregion
 
     #region Initialization
@@ -36,7 +38,7 @@ public class StorageController : MonoBehaviour
     #region Collectible Management
     public bool CanStoreCollectible(CollectibleController collectible)
     {
-        return collectible.collectibleGroup == allowedGroup;
+        return allowedGroups.Contains(collectible.collectibleGroup);
     }
 
     public void AddCollectible(CollectibleController collectible)

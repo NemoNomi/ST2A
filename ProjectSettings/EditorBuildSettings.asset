@@ -24,12 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Round2.unity
     guid: 0c72352fe7e29704197342eda430c407
   - enabled: 1
+    path: Assets/Scenes/Round3.unity
+    guid: 39d8c14ffc9e7244a8d6c8b174e88cd2
+  - enabled: 1
     path: Assets/Scenes/TotalTime.unity
     guid: c952dde581e223c49850c635b89c4687
-  - enabled: 0
-    path: Assets/Scenes/Round2V2.unity
-    guid: 10429e5e75e0fc344863d44a6cd713e3
-  - enabled: 0
-    path: Assets/Scenes/Round2Spare.unity
-    guid: b467cc21e8e881f41bdd71fa35370142
   m_configObjects: {}

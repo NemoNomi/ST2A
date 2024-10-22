@@ -28,6 +28,7 @@ public class MainMenuManager : MonoBehaviour
         settingsMenuPanel.SetActive(activePanel == settingsMenuPanel);
         audioSettingsMenuPanel.SetActive(activePanel == audioSettingsMenuPanel);
         controlsSettingsMenuPanel.SetActive(activePanel == controlsSettingsMenuPanel);
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     #region Menu Navigation
