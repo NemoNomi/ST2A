@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -85,6 +86,8 @@ public class PauseMenuManager : MonoBehaviour
         {
             pauseButtonImage.sprite = pauseSprite;
         }
+
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     private void ResumeGame()
