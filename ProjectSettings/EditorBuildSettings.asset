@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Round4.unity
     guid: 5a42d0879154fe7418587ecd1593caf9
   - enabled: 1
+    path: Assets/Scenes/Round5.unity
+    guid: 6e5d4fddb9798a54fa620377ce53dd55
+  - enabled: 1
     path: Assets/Scenes/TotalTime.unity
     guid: c952dde581e223c49850c635b89c4687
   m_configObjects: {}

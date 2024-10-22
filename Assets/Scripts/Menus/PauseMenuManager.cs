@@ -53,7 +53,7 @@ public class PauseMenuManager : MonoBehaviour
 
     private void HandlePauseInput()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !EventSystem.current.currentSelectedGameObject)
         {
             TogglePauseMenu();
         }
@@ -77,6 +77,7 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 0f;
         OpenPauseMenu();
         AudioManager.instance.PlayUI(AudioManager.instance.PauseMenuOpen);
+
         if (!audioMenuPanel.activeInHierarchy)
         {
             AudioManager.instance.SetLowpassFilter(500f);
@@ -131,6 +132,7 @@ public class PauseMenuManager : MonoBehaviour
         settingsMenuPanel.SetActive(false);
         audioMenuPanel.SetActive(true);
         controlsMenuPanel.SetActive(false);
+
         AudioManager.instance.SetLowpassFilter(22000f);
     }
 
@@ -196,6 +198,8 @@ public class PauseMenuManager : MonoBehaviour
     {
         settingsMenuPanel.SetActive(false);
         OpenPauseMenu();
+
+        AudioManager.instance.SetLowpassFilter(500f);
     }
 
     public void OnAudioBackPress()
