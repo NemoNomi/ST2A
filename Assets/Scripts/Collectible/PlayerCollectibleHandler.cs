@@ -62,15 +62,25 @@ KeyCode GetInteractionKey()
     {
         return KeyCode.Space;
     }
-    else
+    else if (playerIdentifier.playerNumber == 2)
     {
-        #if UNITY_STANDALONE_OSX
-            return KeyCode.RightAlt;
-        #else
+        if (Input.GetKey(KeyCode.RightControl))
+        {
             return KeyCode.RightControl;
-        #endif
+        }
+        else if (Input.GetKey(KeyCode.RightCommand))
+        {
+            return KeyCode.RightCommand;
+        }
+        else if (Input.GetKey(KeyCode.RightAlt))
+        {
+            return KeyCode.RightAlt;
+        }
     }
+
+    return KeyCode.None;
 }
+
 
 
     void TryPickupCollectible()

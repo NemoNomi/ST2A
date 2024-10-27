@@ -9,7 +9,7 @@ public class TypewriterEffect : MonoBehaviour
     [Header("Typewriter Effect Settings")]
     public TextMeshProUGUI textDisplay;
 
-    private string part1Text = "Welcome to switch it up!\n\nYou’re Eco and Tech, two dedicated workers on a computer’s hard drive. \n\nYour task? Keep things organized and running smoothly. Over time, as files are stored and deleted, pieces of data get scattered across the drive, slowing the system down. \n\nYour job is to collect these fragments and put them back in the right place to speed things up again.";
+    private string part1Text = "Welcome to switch it up!\n\nYou’re Eco and Tech, two dedicated workers on a computer’s hard drive. \n\nYour task? Keep things organized and running smoothly. Over time, as files are stored and deleted, pieces of data get scattered across the drive, slowing the system and the workers down. \n\nYour job is to collect these fragments and put them back in the right place to speed things up again.";
 
     private string part2Text = "Each of you controls one side of the workspace, but sometimes the fragments that belong on your side are on your partner’s side.\n\nUse the central exchange area to swap fragments, and work together to restore order. \n\nThe faster you are, the better. The most efficient teams will be recognized among all computer workers!\n\nGet ready to team up, think fast, and switch it up!";
 

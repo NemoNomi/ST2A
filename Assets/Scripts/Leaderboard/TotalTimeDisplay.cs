@@ -21,7 +21,6 @@ public class TotalTimeDisplay : MonoBehaviour
 
     for (int i = 1; i <= UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings; i++)
     {
-        // Summiere nur die Zeiten des aktuellen Teams
         if (PlayerPrefs.HasKey(teamName + "_RoundTime_" + i))
         {
             float roundTime = PlayerPrefs.GetFloat(teamName + "_RoundTime_" + i);
