@@ -56,17 +56,22 @@ public class PlayerCollectibleHandler : MonoBehaviour
         }
     }
 
-    KeyCode GetInteractionKey()
+KeyCode GetInteractionKey()
+{
+    if (playerIdentifier.playerNumber == 1)
     {
-        if (playerIdentifier.playerNumber == 1)
-        {
-            return KeyCode.Space;
-        }
-        else
-        {
-            return KeyCode.RightControl;
-        }
+        return KeyCode.Space;
     }
+    else
+    {
+        #if UNITY_STANDALONE_OSX
+            return KeyCode.RightAlt;
+        #else
+            return KeyCode.RightControl;
+        #endif
+    }
+}
+
 
     void TryPickupCollectible()
     {
